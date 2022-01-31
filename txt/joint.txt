@@ -1,0 +1,5 @@
+Today, while working in Visual Studio Code, on a JavaScript file,
+I noticed that my jshint extension was reporting an error with every JS ...
+You visited this page on 12/18/21.n/ n/ Swagger takes the manual work out
+of API documentation, with a range of solutions for generating, visualizing, 
+and maintaining API docs.
