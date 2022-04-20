@@ -1,4 +1,6 @@
 const http = require('http');
+const fs = require('fs');
+const url = require('url');
 
 ////////////////////////////////////////
 //SERVER
@@ -7,7 +9,12 @@ const server = http.createServer((req,res)=>{
     if(pathName === '/overview'){
         res.end('This is the OVERVIEW')
     }else if(pathName === '/product'){
-        res.end('This is the PRODUCT')
+        res.end('This is the PRODUCT ')
+    }else if(pathName === '/api'){
+        fs.readFile(`${__dirname}/dev-data/data.json`, 'utf-8', (err,data)=>{
+            const productName = JSON.parse(data);
+            console.log(productName);
+        })
     }
     res.end('Hello from the server!')
 })
