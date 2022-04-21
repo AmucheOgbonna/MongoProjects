@@ -1,0 +1,23 @@
+{
+  "name": "nodeonudemy",
+  "version": "1.0.0",
+  "description": "--- Self taught",
+  "main": "01-fileSystem.js",
+  "dependencies": {
+    "superagent": "^7.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmucheOgbonna/MongoProjects.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AmucheOgbonna/MongoProjects/issues"
+  },
+  "homepage": "https://github.com/AmucheOgbonna/MongoProjects#readme"
+}
