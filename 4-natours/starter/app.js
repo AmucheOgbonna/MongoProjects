@@ -1,55 +1,37 @@
-const fs = require('fs');
 const express = require('express');
+const morgan = require('morgan');
+
+const tourRouter = require('./route/tourRoutes');
+const userRouter = require('./route/userRoutes');
 
 const app = express();
-app.use(express());
 
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
+/////// 1]  MIDDLEWARE
 
-app.get('/api/v1/tours', (req, res) => {
-  res.status(200).json({
-    status: 'Success',
-    results: tours.length,
-    data: {
-      tours: tours, // OR tours only according to es6
-    },
-  });
+app.use(morgan('dev'));
+app.use(express.json());
+app.use((req, res, next) => {
+  console.log('Hello from the other-side');
+  next();
 });
 
-app.post('/api/v1/tours', (req, res) => {
-  console.log(req.body);
-  //   const newId = tours[tours.length - 1].id + 1;
-  //   const newTours = Object.assign({ id: newId }, req.body);
-
-  //   tours.push(newTours);
-  //   fs.writeFile(
-  //     `${__dirname}/dev-data/data/tours-simple.json`,
-  //     JSON.stringify(tours),
-  //     (err) => {
-  //       res.status(201).json({
-  //         status: 'success',
-  //         data: {
-  //           tours: newTours,
-  //         },
-  //       });
-  //     }
-  //   );
-  res.send('Done');
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
 });
 
-const port = 7001;
-app.listen(port, () => {
-  console.log(`App running on port ${port}`);
-});
+//////// 2] ROUTE HANDLERS
 
-/* app.get('/', (req, res) => {
-  res
-    .status(200)
-    .json({ message: 'Hello from the server-side', app: 'Natours' });
-});
+// app.get('/api/v1/tours', getAllTours);
+// app.get('/api/v1/tours/:id', getTour);
+// app.post('/api/v1/tours', createTour);
+// app.patch('/api/v1/tours/:id', updateTour);
+// app.delete('/api/v1/tours/:id', deleteTour);
 
-app.post('/', (req, res) => {
-  res.send('You can post....................');
-}); */
+///// 3] MOUNTING THE ROUTES
+
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+///// 4] SERVER
+
+module.exports = app;
