@@ -7,9 +7,13 @@ const userRouter = require('./route/userRoutes');
 const app = express();
 
 /////// 1]  MIDDLEWARE
-
-app.use(morgan('dev'));
+console.log(process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
 app.use(express.json());
+app.use(express.static(`${__dirname}/public`)); //STATIC_FILES
+
 app.use((req, res, next) => {
   console.log('Hello from the other-side');
   next();
@@ -32,6 +36,5 @@ app.use((req, res, next) => {
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
-///// 4] SERVER
 
 module.exports = app;
